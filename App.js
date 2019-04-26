@@ -7,7 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View, Button, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {};
 
@@ -20,6 +21,23 @@ export default class App extends Component<Props> {
           <Text style={styles.prompt}>What have you eaten today?</Text>
           <RecordTodaysFood></RecordTodaysFood>
         </View>
+        <Button
+          title="Save today's food"
+          onPress={() => {async () => {
+            try {
+              await AsyncStorage.setItem('today', ['indian']);
+              Alert.alert(
+                'Done!',
+                'Saved what you\'ve eaten today.'
+              )
+            } catch (e) {
+              Alert.alert(
+                'Problem!',
+                'There was an error saving what you\'ve eaten today.'
+              )
+            }
+          }}}
+        />
       </View>
     );
   }
