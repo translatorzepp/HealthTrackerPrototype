@@ -17,7 +17,7 @@ export default class App extends Component<Props> {
       <View>
         <DateBanner styleStuff={styles} today={this.todayString()} />
         <View style={styles.container}>
-          <Text style={styles.prompt}>"What have you eaten today?"</Text>
+          <Text style={styles.prompt}>What have you eaten today?</Text>
           <RecordTodaysFood></RecordTodaysFood>
         </View>
       </View>
@@ -25,7 +25,7 @@ export default class App extends Component<Props> {
   }
 
   todayString() {
-    return 'Today, ' + new Date().toLocaleDateString();
+    return 'Today, ' + new Date().toDateString();
   }
 }
 
@@ -130,7 +130,7 @@ class DateBanner extends Component<Props> {
 const styles = StyleSheet.create({
   dateBackground: {
     width: '100%',
-    height: '30%',
+    height: '20%',
     backgroundColor: 'seagreen',
     alignItems: 'center',
     justifyContent: 'center',
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     color: 'seashell',
   },
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -155,6 +154,6 @@ const styles = StyleSheet.create({
   prompt: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: '3%',
+    marginBottom: '4%',
   },
 });
