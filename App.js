@@ -33,7 +33,7 @@ class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      foodInputs: ["indian", ""],
+      foodInputs: [""],
     }
   }
 
