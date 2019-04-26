@@ -56,12 +56,13 @@ class RecordTodaysFood extends Component<Props> {
               foodInputs: newFoodInputs,
             });
 
-            if (text.length > 2) {
+            if (text.length >= 2 && !this._emptyInputAlreadyExists()) {
               this.setState({
                 foodInputs: [...this.state.foodInputs, ""]
               });
             }
           }}
+
           key={index}
           index={index}
         />
@@ -74,13 +75,24 @@ class RecordTodaysFood extends Component<Props> {
       </View>
     );
   }
+
+  _emptyInputAlreadyExists() {
+    var anyEmpty = false;
+    for (const e of this.state.foodInputs) {
+      if (e.length == 0) {
+        anyEmpty = true;
+        break;
+      }
+    }
+    return anyEmpty;
+  }
 }
 
 class FoodNameInput extends Component<Props> {
   constructor(props) {
     super(props);
 
-    var empty = this.props.foodName.length < 2
+    var empty = this.props.foodName.length <= 2
     this.state = {
       nameOfFood: this.props.foodName,
       foodEntered: !empty,
@@ -88,10 +100,9 @@ class FoodNameInput extends Component<Props> {
   }
 
   _submitFood(text)  {
-    console.log('*** entered submitFood in FoodNameInput. called with text: ' + text + ' ***');
-    var filledOut = text.length >= 2
+    var filledOut = text.length > 2
     this.setState({
-      foodEntered: true,
+      foodEntered: filledOut,
       nameOfFood: text
     });
 
