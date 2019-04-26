@@ -109,7 +109,7 @@ class FoodNameInput extends Component<Props> {
       <TextInput
         placeholder="Name of a food"
         style={{borderColor: colorForBorder, borderWidth: widthForBorder}}
-        onSubmitEditing={(event) => this._submitFood(event.nativeEvent.text)}
+        onEndEditing={(event) => this._submitFood(event.nativeEvent.text)}
       >
         {this.state.nameOfFood}
       </TextInput>
