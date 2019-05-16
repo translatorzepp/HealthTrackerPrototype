@@ -21,23 +21,6 @@ export default class App extends Component<Props> {
           <Text style={styles.prompt}>What have you eaten today?</Text>
           <RecordTodaysFood></RecordTodaysFood>
         </View>
-        <Button
-          title="Save today's food"
-          onPress={() => {async () => {
-            try {
-              await AsyncStorage.setItem('today', ['indian']);
-              Alert.alert(
-                'Done!',
-                'Saved what you\'ve eaten today.'
-              )
-            } catch (e) {
-              Alert.alert(
-                'Problem!',
-                'There was an error saving what you\'ve eaten today.'
-              )
-            }
-          }}}
-        />
       </View>
     );
   }
@@ -50,8 +33,10 @@ export default class App extends Component<Props> {
 class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
+    const d = new Date();
     this.state = {
       foodInputs: [""],
+      todayKeyString: d.getFullYear().toString() + d.getMonth().toString() + d.getDate().toString()
     }
   }
 
@@ -83,6 +68,48 @@ class RecordTodaysFood extends Component<Props> {
     return(
       <View>
         {inputs}
+        <Button
+          title="Save today's food"
+          onPress={async () => {
+            console.log('*** button pressed ***')
+            console.log
+            try {
+              await AsyncStorage.setItem(this.state.todayKeyString, ['indian'].join('|'));
+              console.log('*** storage happened with key ' + this.state.todayKeyString + ' ***')
+              Alert.alert(
+                'Done!',
+                'Saved what you\'ve eaten today.'
+              );
+            } catch (e) {
+              console.log('*** exception ***')
+              console.log(e);
+              Alert.alert(
+                'Problem!',
+                'There was an error saving what you\'ve eaten today.'
+              );
+            }
+          }}
+        />
+        <Button
+          title="What did I eat today?"
+          onPress={async () => {
+            console.log('*** button pressed ***')
+            try {
+              console.log('*** retrieving key ' + this.state.todayKeyString + ' ***')
+              const foodString = await AsyncStorage.getItem(this.state.todayKeyString)
+              Alert.alert(
+                'Today\'s Food',
+                foodString
+              );
+            } catch (e) {
+              console.log(e);
+              Alert.alert(
+                'Problem!',
+                'There was an error retrieving what you\'ve eaten today.'
+              );
+            }
+          }}
+        />
       </View>
     );
   }
