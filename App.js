@@ -71,10 +71,10 @@ class RecordTodaysFood extends Component<Props> {
         <Button
           title="Save today's food"
           onPress={async () => {
-            console.log('*** button pressed ***')
-            console.log
+            console.log('*** save button pressed ***')
             try {
-              await AsyncStorage.setItem(this.state.todayKeyString, ['indian'].join('|'));
+              // TODO: avoid calling .join on an empty array; trim off "" at the end
+              await AsyncStorage.setItem(this.state.todayKeyString, this.state.foodInputs.join('|'));
               console.log('*** storage happened with key ' + this.state.todayKeyString + ' ***')
               Alert.alert(
                 'Done!',
@@ -93,7 +93,7 @@ class RecordTodaysFood extends Component<Props> {
         <Button
           title="What did I eat today?"
           onPress={async () => {
-            console.log('*** button pressed ***')
+            console.log('*** retrieve button pressed ***')
             try {
               console.log('*** retrieving key ' + this.state.todayKeyString + ' ***')
               const foodString = await AsyncStorage.getItem(this.state.todayKeyString)
