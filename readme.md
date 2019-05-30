@@ -1,20 +1,19 @@
 ✨ created with react-native-cli ✨
 
-Run instructions for Android:
+## Run instructions for Android
 
-  • Have an Android emulator running (quickest way to get started), or a device connected.
+• Have an Android emulator running (quickest way to get started), or a device connected. e.g.:
 
-    • e.g. `cd path/to/android/sdk && emulator -avd @NameOfVirtualDeviceWith_Instead_of_Spaces -netdely none -netspeed full`
+    • cd path/to/android/sdk && emulator -avd @NameOfVirtualDeviceWith_Instead_of_Spaces -netdely none -netspeed full
 
-  • `cd path/to/HealthTrackerPrototype && react-native run-android`
+• `cd path/to/HealthTrackerPrototype && react-native run-android`
 
-Run instructions for iOS:
+## Run instructions for iOS:
 
-  • `cd path/to/HealthTrackerPrototype && react-native run-ios`
+• `cd path/to/HealthTrackerPrototype && react-native run-ios`
 
-  - or -
+or
 
-  • Open `ios/HealthTrackerPrototype.xcodeproj` in Xcode
+• Open `ios/HealthTrackerPrototype.xcodeproj` in Xcode
 
-  • Hit the Run button
-
+• Hit the Run button
