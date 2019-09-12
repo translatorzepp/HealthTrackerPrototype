@@ -41,22 +41,21 @@ class RecordTodaysFood extends Component<Props> {
       return(
         <FoodNameInput
           foodName={item}
-          callback={(text, index) => {
+          key={index}
+          index={index}
+
+          updateFoodInputs={(text, index) => {
             var newFoodInputs = this.state.foodInputs;
             newFoodInputs[index] = text;
+
+            if (text.length >= 2 && !this._emptyInputAlreadyExists()) {
+              newFoodInputs[index + 1] = "";
+            }
+
             this.setState({
               foodInputs: newFoodInputs,
             });
-
-            if (text.length >= 2 && !this._emptyInputAlreadyExists()) {
-              this.setState({
-                foodInputs: [...this.state.foodInputs, ""]
-              });
-            }
           }}
-
-          key={index}
-          index={index}
         />
       );
     })
@@ -98,7 +97,7 @@ class FoodNameInput extends Component<Props> {
       nameOfFood: text
     });
 
-    this.props.callback(text, this.props.index);
+    this.props.updateFoodInputs(text, this.props.index);
   }
 
   render() {
