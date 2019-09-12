@@ -101,11 +101,10 @@ class FoodNameInput extends Component<Props> {
 
   render() {
     var colorForBorder = this.state.foodEntered ? 'seagreen' : 'royalblue';
-    var widthForBorder = this.state.foodEntered ? 1 : 2
     return (
       <TextInput
         placeholder="Name of a food"
-        style={{borderColor: colorForBorder, borderWidth: widthForBorder}}
+        style={{borderColor: colorForBorder, borderWidth: 2}}
         onEndEditing={(event) => this._submitFood(event.nativeEvent.text)}
       >
         {this.state.nameOfFood}
