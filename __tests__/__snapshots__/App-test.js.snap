@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "seagreen",
+        "height": "20%",
+        "justifyContent": "center",
+        "marginBottom": "10%",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "seashell",
+          "fontSize": 20,
+          "textAlign": "center",
+        }
+      }
+    >
+      Today, Fri Sep 13 2019
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#F5FCFF",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#333333",
+          "marginBottom": "4%",
+          "textAlign": "center",
+        }
+      }
+    >
+      What have you eaten today?
+    </Text>
+    <View>
+      <TextInput
+        allowFontScaling={true}
+        onEndEditing={[Function]}
+        placeholder="Name of a food"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "royalblue",
+            "borderWidth": 2,
+          }
+        }
+        underlineColorAndroid="transparent"
+      >
+        
+      </TextInput>
+    </View>
+  </View>
+</View>
+`;
