@@ -7,6 +7,12 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+
+const MainNavigator = createStackNavigator({
+  Day: {screen: DayScreen},
+  Calendar: {screen: CalendarScreen}
+});
 
 type Props = {};
 
