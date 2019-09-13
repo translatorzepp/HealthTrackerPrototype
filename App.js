@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View, Button} from 'react-native';
 
 type Props = {};
 
@@ -15,10 +15,7 @@ export default class App extends Component<Props> {
     return (
       <View>
         <DateBanner styleStuff={styles} today={this.todayString()} />
-        <View style={styles.container}>
-          <Text style={styles.prompt}>What have you eaten today?</Text>
-          <RecordTodaysFood></RecordTodaysFood>
-        </View>
+        <RecordTodaysFood></RecordTodaysFood>
       </View>
     );
   }
@@ -32,83 +29,65 @@ class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      foodInputs: [""],
+      food: [],
     }
   }
 
   render() {
-    let inputs = this.state.foodInputs.map((item, index) => {
+    let savedFoodOutput = this.state.food.map((item, index) => {
       return(
+        <Text key={index}>{item}</Text>
+      );
+    });
+
+    return(
+      <View style={styles.container}>
+        <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
-          foodName={item}
-          key={index}
-          index={index}
-
-          updateFoodInputs={(text, index) => {
-            var newFoodInputs = this.state.foodInputs;
-            newFoodInputs[index] = text;
-
-            if (!this._emptyInputAlreadyExists(newFoodInputs)) {
-              newFoodInputs.push("");
-            }
-
+          updateFoodInputs={(text) => {
             this.setState({
-              foodInputs: newFoodInputs,
+              food: [text, ...this.state.food]
             });
           }}
         />
-      );
-    })
-
-    return(
-      <View>
-        {inputs}
+        {savedFoodOutput}
       </View>
     );
-  }
-
-  _emptyInputAlreadyExists(foodInputs) {
-    var anyEmpty = false;
-    for (const e of foodInputs) {
-      if (e.length == 0) {
-        anyEmpty = true;
-        break;
-      }
-    }
-    return anyEmpty;
   }
 }
 
 class FoodNameInput extends Component<Props> {
   constructor(props) {
     super(props);
-
-    var foodEntered = this.props.foodName.length > 0
     this.state = {
-      nameOfFood: this.props.foodName,
-      foodEntered: foodEntered,
+      nameOfFood: "",
+      foodEntered: false,
     }
   }
 
-  _submitFood(text)  {
-    this.setState({
-      foodEntered: text.length > 0,
-      nameOfFood: text
-    });
-
-    this.props.updateFoodInputs(text, this.props.index);
+  _submitFood(text, isEmpty) {
+    if (!isEmpty) {
+      this.props.updateFoodInputs(text);
+    }
   }
 
   render() {
     var colorForBorder = this.state.foodEntered ? 'seagreen' : 'royalblue';
     return (
-      <TextInput
-        placeholder="Name of a food"
-        style={{borderColor: colorForBorder, borderWidth: 2}}
-        onEndEditing={(event) => this._submitFood(event.nativeEvent.text)}
-      >
-        {this.state.nameOfFood}
-      </TextInput>
+      <View>
+        <TextInput
+          placeholder="Name of a food"
+          style={{borderColor: colorForBorder, borderWidth: 2}}
+          onChangeText={(text) => this.setState({nameOfFood: text, foodEntered: text.length == 0})}
+        >
+          {this.state.nameOfFood}
+        </TextInput>
+        <Button
+          title="Save Food"
+          onPress={() => this._submitFood(this.state.nameOfFood, this.state.foodEntered)}
+          accessibilityLabel="Save Food"
+        />
+      </View>
     )
   }
 }
