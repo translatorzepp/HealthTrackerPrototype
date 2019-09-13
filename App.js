@@ -48,8 +48,8 @@ class RecordTodaysFood extends Component<Props> {
             var newFoodInputs = this.state.foodInputs;
             newFoodInputs[index] = text;
 
-            if (!this._emptyInputAlreadyExists()) {
-              newFoodInputs[index + 1] = "";
+            if (!this._emptyInputAlreadyExists(newFoodInputs)) {
+              newFoodInputs.push("");
             }
 
             this.setState({
@@ -67,9 +67,9 @@ class RecordTodaysFood extends Component<Props> {
     );
   }
 
-  _emptyInputAlreadyExists() {
+  _emptyInputAlreadyExists(foodInputs) {
     var anyEmpty = false;
-    for (const e of this.state.foodInputs) {
+    for (const e of foodInputs) {
       if (e.length == 0) {
         anyEmpty = true;
         break;
