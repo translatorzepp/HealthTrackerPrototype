@@ -68,6 +68,10 @@ class FoodNameInput extends Component<Props> {
   _submitFood(text, isEmpty) {
     if (!isEmpty) {
       this.props.updateFoodInputs(text);
+      this.setState({
+        nameOfFood: "",
+        foodEntered: false
+      });
     }
   }
 
