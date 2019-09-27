@@ -78,7 +78,7 @@ class FoodNameInput extends Component<Props> {
   render() {
     var colorForBorder = this.state.foodEntered ? 'seagreen' : 'royalblue';
     return (
-      <View>
+      <View style={{marginBottom: '5%'}} >
         <TextInput
           placeholder="Name of a food"
           style={{borderColor: colorForBorder, borderWidth: 2}}
