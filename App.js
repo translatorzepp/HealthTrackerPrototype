@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View, Button} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList} from 'react-native';
 
 type Props = {};
 
@@ -34,10 +34,11 @@ class RecordTodaysFood extends Component<Props> {
   }
 
   render() {
-    let savedFoodOutput = this.state.food.map((item, index) => {
-      return(
-        <Text key={index}>{item}</Text>
-      );
+    let savedFoodOutputData = this.state.food.map((foodName, index) => {
+      return({
+        key: String(index),
+        name: foodName
+      });
     });
 
     return(
@@ -50,7 +51,23 @@ class RecordTodaysFood extends Component<Props> {
             });
           }}
         />
-        {savedFoodOutput}
+          <FlatList
+            style={styles.foodList}
+            contentContainerStyle={styles.foodListContainer}
+            data={savedFoodOutputData}
+            renderItem={({item}) =>
+              <View style={styles.foodListEntry}>
+                <Text style={{marginRight: '10%'}}>{item.name}</Text>
+                <Button
+                  title="x"
+                  color="red"
+                  type="outline"
+                  onPress={() => {}}
+                  accessibilityLabel="Delete this Food Entry"
+                />
+              </View>
+            }
+        />
       </View>
     );
   }
@@ -107,7 +124,7 @@ class DateBanner extends Component<Props> {
 const styles = StyleSheet.create({
   dateBackground: {
     width: '100%',
-    height: '20%',
+    //height: '20%', // TODO: replace with calculated % of pixel
     backgroundColor: 'seagreen',
     alignItems: 'center',
     justifyContent: 'center',
@@ -122,6 +139,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  foodList: {
+    width: '100%',
+  },
+  foodListContainer: {
+    alignItems: 'center',
+  },
+  foodListEntry: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: '5%',
   },
   prompt: {
     textAlign: 'center',
