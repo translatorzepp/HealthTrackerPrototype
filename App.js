@@ -61,34 +61,32 @@ class FoodNameInput extends Component<Props> {
     super(props);
     this.state = {
       nameOfFood: "",
-      foodEntered: false,
     }
   }
 
-  _submitFood(text, isEmpty) {
-    if (!isEmpty) {
+  _submitFood(text) {
+    if (text.length > 0) { // TODO: check for only spaces / non-word characters
       this.props.updateFoodInputs(text);
       this.setState({
         nameOfFood: "",
-        foodEntered: false
       });
     }
   }
 
   render() {
-    var colorForBorder = this.state.foodEntered ? 'seagreen' : 'royalblue';
+    var colorForBorder = (this.state.nameOfFood.length > 0) ? 'seagreen' : 'royalblue';
     return (
       <View style={{marginBottom: '5%'}} >
         <TextInput
           placeholder="Name of a food"
           style={{borderColor: colorForBorder, borderWidth: 2}}
-          onChangeText={(text) => this.setState({nameOfFood: text, foodEntered: text.length == 0})}
+          onChangeText={(text) => this.setState({nameOfFood: text})}
         >
           {this.state.nameOfFood}
         </TextInput>
         <Button
           title="Save Food"
-          onPress={() => this._submitFood(this.state.nameOfFood, this.state.foodEntered)}
+          onPress={() => this._submitFood(this.state.nameOfFood)}
           accessibilityLabel="Save Food"
         />
       </View>
