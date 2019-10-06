@@ -13,8 +13,8 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View>
-        <DateBanner styleStuff={styles} today={this.todayString()} />
+      <View style={{flex: 1, width: '100%'}}>
+        <DateBanner today={this.todayString()} />
         <RecordTodaysFood></RecordTodaysFood>
       </View>
     );
@@ -42,7 +42,7 @@ class RecordTodaysFood extends Component<Props> {
     });
 
     return(
-      <View style={styles.container}>
+      <View style={styles.mainContentContainer}>
         <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
           updateFoodInputs={(text) => {
@@ -114,8 +114,8 @@ class FoodNameInput extends Component<Props> {
 class DateBanner extends Component<Props> {
   render() {
     return (
-      <View style={this.props.styleStuff.dateBackground}>
-        <Text style={this.props.styleStuff.dateText}>{this.props.today}</Text>
+      <View style={styles.dateBackground}>
+        <Text style={styles.dateText}>{this.props.today}</Text>
       </View>
     );
   }
@@ -124,18 +124,23 @@ class DateBanner extends Component<Props> {
 const styles = StyleSheet.create({
   dateBackground: {
     width: '100%',
-    //height: '20%', // TODO: replace with calculated % of pixel
     backgroundColor: 'seagreen',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '10%',
+    justifyContent: 'space-around',
   },
   dateText: {
     fontSize: 20,
     textAlign: 'center',
     color: 'seashell',
+    marginTop: '2%',
+    marginBottom: '4%',
   },
-  container: {
+  prompt: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: '4%',
+  },
+  mainContentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -150,10 +155,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: '5%',
-  },
-  prompt: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: '4%',
   },
 });
