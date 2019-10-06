@@ -13,7 +13,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={{flex: 1, width: '100%'}}>
+      <View style={{flex: 1, width: '100%', alignItems: 'center'}}>
         <DateBanner today={this.todayString()} />
         <RecordTodaysFood></RecordTodaysFood>
       </View>
@@ -144,12 +144,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    width: '70%',
   },
   foodList: {
     width: '100%',
   },
   foodListContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   foodListEntry: {
     flexDirection: 'row',
