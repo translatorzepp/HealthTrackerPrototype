@@ -62,7 +62,14 @@ class RecordTodaysFood extends Component<Props> {
                   title="x"
                   color="red"
                   type="outline"
-                  onPress={() => {}}
+                  onPress={() => {
+                    let indexToRemove = parseInt(item.key, 10);
+                    var newFood = this.state.food;
+                    newFood.splice(indexToRemove, 1);
+                    this.setState({
+                      food: newFood
+                    });
+                  }}
                   accessibilityLabel="Delete this Food Entry"
                 />
               </View>
