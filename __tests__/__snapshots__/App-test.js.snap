@@ -1,16 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "height": 1334,
+    }
+  }
+>
   <View
     style={
       Object {
-        "alignItems": "center",
         "backgroundColor": "seagreen",
-        "height": "20%",
-        "justifyContent": "center",
-        "marginBottom": "10%",
-        "width": "100%",
+        "height": "10%",
       }
     }
   >
@@ -31,7 +33,7 @@ exports[`renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "#F5FCFF",
-        "justifyContent": "center",
+        "height": "90%",
       }
     }
   >
@@ -39,14 +41,19 @@ exports[`renders correctly 1`] = `
       style={
         Object {
           "color": "#333333",
-          "marginBottom": "4%",
           "textAlign": "center",
         }
       }
     >
       What have you eaten today?
     </Text>
-    <View>
+    <View
+      style={
+        Object {
+          "marginBottom": "5%",
+        }
+      }
+    >
       <TextInput
         allowFontScaling={true}
         onChangeText={[Function]}
@@ -106,6 +113,39 @@ exports[`renders correctly 1`] = `
         </View>
       </View>
     </View>
+    <RCTScrollView
+      contentContainerStyle={
+        Object {
+          "alignItems": "flex-end",
+        }
+      }
+      data={Array []}
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      style={Object {}}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View />
+    </RCTScrollView>
   </View>
 </View>
 `;

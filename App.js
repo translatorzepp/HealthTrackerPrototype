@@ -6,15 +6,15 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View, Button} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList, Dimensions} from 'react-native';
 
 type Props = {};
 
 export default class App extends Component<Props> {
   render() {
     return (
-      <View>
-        <DateBanner styleStuff={styles} today={this.todayString()} />
+      <View style={styles.topStyle}>
+        <DateBanner today={this.todayString()} />
         <RecordTodaysFood></RecordTodaysFood>
       </View>
     );
@@ -34,14 +34,15 @@ class RecordTodaysFood extends Component<Props> {
   }
 
   render() {
-    let savedFoodOutput = this.state.food.map((item, index) => {
-      return(
-        <Text key={index}>{item}</Text>
-      );
+    let savedFoodOutputData = this.state.food.map((foodName, index) => {
+      return({
+        key: String(index),
+        name: foodName
+      });
     });
 
     return(
-      <View style={styles.container}>
+      <View style={styles.mainContentContainer}>
         <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
           updateFoodInputs={(text) => {
@@ -50,7 +51,30 @@ class RecordTodaysFood extends Component<Props> {
             });
           }}
         />
-        {savedFoodOutput}
+          <FlatList
+            style={styles.foodList}
+            contentContainerStyle={styles.foodListContainer}
+            data={savedFoodOutputData}
+            renderItem={({item}) =>
+              <View style={styles.foodListEntry}>
+                <Text style={{marginRight: '10%'}}>{item.name}</Text>
+                <Button
+                  title="x"
+                  color="red"
+                  type="outline"
+                  onPress={() => {
+                    let indexToRemove = parseInt(item.key, 10);
+                    var newFood = this.state.food;
+                    newFood.splice(indexToRemove, 1);
+                    this.setState({
+                      food: newFood
+                    });
+                  }}
+                  accessibilityLabel="Delete this Food Entry"
+                />
+              </View>
+            }
+        />
       </View>
     );
   }
@@ -97,35 +121,42 @@ class FoodNameInput extends Component<Props> {
 class DateBanner extends Component<Props> {
   render() {
     return (
-      <View style={this.props.styleStuff.dateBackground}>
-        <Text style={this.props.styleStuff.dateText}>{this.props.today}</Text>
+      <View style={styles.dateBackground}>
+        <Text style={styles.dateText}>{this.props.today}</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  topStyle: {
+    height: Dimensions.get('window').height,
+  },
   dateBackground: {
-    width: '100%',
-    height: '20%',
     backgroundColor: 'seagreen',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '10%',
+    height: '10%',
   },
   dateText: {
     fontSize: 20,
     textAlign: 'center',
     color: 'seashell',
   },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  mainContentContainer: {
     backgroundColor: '#F5FCFF',
+    height: '90%',
+    alignItems: 'center',
   },
   prompt: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: '4%',
+  },
+  foodList: {
+  },
+  foodListContainer: {
+    alignItems: 'flex-end',
+  },
+  foodListEntry: {
+    flexDirection: 'row',
+    margin: 10,
   },
 });
