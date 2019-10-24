@@ -30,5 +30,5 @@ To run snapshot tests:
 
 To save a new state of a snapshot test:
 
-`npm test -u`
+`npm test -- -u`
 
