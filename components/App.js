@@ -13,17 +13,18 @@ import styles from '../styles';
 type Props = {};
 
 export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.topStyle}>
-        <DateBanner today={this.todayString()} />
-        <RecordTodaysFood></RecordTodaysFood>
-      </View>
-    );
+  _todayDate() {
+    return new Date();
   }
 
-  todayString() {
-    return 'Today, ' + new Date().toDateString();
+  render() {
+    const todayDate = this._todayDate();
+    return (
+      <View style={styles.topStyle}>
+        <DateBanner today={todayDate} />
+        <RecordTodaysFood date={todayDate} startFood={[]}></RecordTodaysFood>
+      </View>
+    );
   }
 }
 
@@ -31,8 +32,12 @@ class DateBanner extends Component<Props> {
   render() {
     return (
       <View style={styles.dateBackground}>
-        <Text style={styles.dateText}>{this.props.today}</Text>
+        <Text style={styles.dateText}>{this.todayHeaderDisplay(this.props.today)}</Text>
       </View>
     );
+  }
+
+  todayHeaderDisplay(todayDate) {
+    return 'Today, ' + todayDate.toDateString();
   }
 }

@@ -6,7 +6,8 @@
  */
 
 import React, {Component} from 'react';
-import {Text, TextInput, View, Button, FlatList} from 'react-native';
+import {Text, TextInput, View, Button, FlatList, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import styles from '../styles';
 
 type Props = {};
@@ -14,8 +15,66 @@ type Props = {};
 export default class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
+    const dateKey = this._generateDatabaseKey(this.props.date);
+
     this.state = {
-      food: [],
+      food: this.props.startFood,
+      todayKeyString: dateKey,
+    };
+
+    this._retrieveFoodFromDatabase(dateKey)
+      .then((foodString) => {
+        if (foodString) { // TODO: is this OK?
+          this.setState({
+            food: foodString.split(','),
+          });
+        }
+      });
+  }
+
+  _generateDatabaseKey(dateObject) {
+    // ISO-8601 date format, without time: YYYY-MM-DD
+    return dateObject.toISOString().slice(0, 10);
+  }
+
+  _setFood(newFoodArray) {
+    this.setState({
+      food: newFoodArray,
+    });
+    this._saveFoodToDatabase(newFoodArray);
+  }
+
+  async _saveFoodToDatabase(food) {
+    try {
+      const valueToStore = this._convertFoodListToJsonString(food);
+      await AsyncStorage.setItem(this.state.todayKeyString, valueToStore);
+    } catch (e) {
+      console.log('*** exception while attempting to save to database; key: ' + this.state.todayKeyString + ' value: ' + valueToStore + ' ***');
+      console.log('*** ' + e + ' ***');
+      Alert.alert(
+        'Problem!',
+        'There was an error saving what you\'ve eaten today.'
+      );
+    }
+  }
+
+  _convertFoodListToJsonString(food) {
+    // TODO: escape commas, then actually structure this
+    return food.toString();
+  }
+
+  async _retrieveFoodFromDatabase(key) {
+    try {
+      const foodString = await AsyncStorage.getItem(key);
+      return foodString;
+    } catch (e) {
+      console.log('*** exception while attempting to retrieve from database; key: ' + key + ' ***');
+      console.log('*** ' + e + ' ***');
+      Alert.alert(
+        'Problem!',
+        'There was an error retrieving what you\'ve eaten today.'
+      );
+      return '';
     }
   }
 
@@ -23,7 +82,7 @@ export default class RecordTodaysFood extends Component<Props> {
     let savedFoodOutputData = this.state.food.map((foodName, index) => {
       return({
         key: String(index),
-        name: foodName
+        name: foodName,
       });
     });
 
@@ -32,9 +91,8 @@ export default class RecordTodaysFood extends Component<Props> {
         <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
           updateFoodInputs={(text) => {
-            this.setState({
-              food: [text, ...this.state.food]
-            });
+            const newFood = [text, ...this.state.food];
+            this._setFood(newFood);
           }}
         />
           <FlatList
@@ -43,7 +101,7 @@ export default class RecordTodaysFood extends Component<Props> {
             data={savedFoodOutputData}
             renderItem={({item}) =>
               <View style={styles.foodListEntry}>
-                <Text style={{marginRight: '10%'}}>{item.name}</Text>
+                <Text style={styles.foodListText}>{item.name}</Text>
                 <Button
                   title="x"
                   color="red"
@@ -52,9 +110,7 @@ export default class RecordTodaysFood extends Component<Props> {
                     let indexToRemove = parseInt(item.key, 10);
                     var newFood = this.state.food;
                     newFood.splice(indexToRemove, 1);
-                    this.setState({
-                      food: newFood
-                    });
+                    this._setFood(newFood);
                   }}
                   accessibilityLabel="Delete this Food Entry"
                 />
@@ -70,16 +126,7 @@ class FoodNameInput extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      nameOfFood: "",
-    }
-  }
-
-  _submitFood(text) {
-    if (text.length > 0) { // TODO: check for only spaces / non-word characters
-      this.props.updateFoodInputs(text);
-      this.setState({
-        nameOfFood: "",
-      });
+      nameOfFood: '',
     }
   }
 
@@ -101,5 +148,14 @@ class FoodNameInput extends Component<Props> {
         />
       </View>
     )
+  }
+
+  _submitFood(text) {
+    if (text.length > 0) { // TODO: check for only spaces / non-word characters
+      this.props.updateFoodInputs(text);
+      this.setState({
+        nameOfFood: '',
+      });
+    }
   }
 }

@@ -31,4 +31,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     margin: 10,
   },
+  foodListText: {
+    marginRight: '10%',
+  },
 });

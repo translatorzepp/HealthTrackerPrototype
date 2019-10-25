@@ -1,5 +1,423 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`displays a list of food items 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#F5FCFF",
+      "height": "90%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "#333333",
+        "textAlign": "center",
+      }
+    }
+  >
+    What have you eaten today?
+  </Text>
+  <View
+    style={
+      Object {
+        "marginBottom": "5%",
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Name of a food"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "royalblue",
+          "borderWidth": 2,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <View
+      accessibilityLabel="Save Food"
+      accessibilityRole="button"
+      accessibilityStates={Array []}
+      accessible={true}
+      clickable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {},
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007AFF",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          Save Food
+        </Text>
+      </View>
+    </View>
+  </View>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "alignItems": "flex-end",
+      }
+    }
+    data={
+      Array [
+        Object {
+          "key": "0",
+          "name": "one food",
+        },
+        Object {
+          "key": "1",
+          "name": "two food",
+        },
+        Object {
+          "key": "2",
+          "name": "red food",
+        },
+        Object {
+          "key": "3",
+          "name": "blue food",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={Object {}}
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "margin": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "marginRight": "10%",
+              }
+            }
+          >
+            one food
+          </Text>
+          <View
+            accessibilityLabel="Delete this Food Entry"
+            accessibilityRole="button"
+            accessibilityStates={Array []}
+            accessible={true}
+            clickable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "red",
+                    },
+                  ]
+                }
+              >
+                x
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "margin": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "marginRight": "10%",
+              }
+            }
+          >
+            two food
+          </Text>
+          <View
+            accessibilityLabel="Delete this Food Entry"
+            accessibilityRole="button"
+            accessibilityStates={Array []}
+            accessible={true}
+            clickable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "red",
+                    },
+                  ]
+                }
+              >
+                x
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "margin": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "marginRight": "10%",
+              }
+            }
+          >
+            red food
+          </Text>
+          <View
+            accessibilityLabel="Delete this Food Entry"
+            accessibilityRole="button"
+            accessibilityStates={Array []}
+            accessible={true}
+            clickable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "red",
+                    },
+                  ]
+                }
+              >
+                x
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "margin": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "marginRight": "10%",
+              }
+            }
+          >
+            blue food
+          </Text>
+          <View
+            accessibilityLabel="Delete this Food Entry"
+            accessibilityRole="button"
+            accessibilityStates={Array []}
+            accessible={true}
+            clickable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#007AFF",
+                      "fontSize": 18,
+                      "padding": 8,
+                      "textAlign": "center",
+                    },
+                    Object {
+                      "color": "red",
+                    },
+                  ]
+                }
+              >
+                x
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
 exports[`renders correctly 1`] = `
 <View
   style={
