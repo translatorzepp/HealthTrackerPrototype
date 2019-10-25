@@ -12,16 +12,13 @@ type Props = {};
 
 export default class App extends Component<Props> {
   render() {
+    const todayDate = new Date();
     return (
       <View style={styles.topStyle}>
-        <DateBanner today={this.todayString()} />
-        <RecordTodaysFood></RecordTodaysFood>
+        <DateBanner today={todayDate} />
+        <RecordTodaysFood date={todayDate}></RecordTodaysFood>
       </View>
     );
-  }
-
-  todayString() {
-    return 'Today, ' + new Date().toDateString();
   }
 }
 
@@ -30,7 +27,12 @@ class RecordTodaysFood extends Component<Props> {
     super(props);
     this.state = {
       food: [],
+      todayKeyString: this.generateKeyFromDate(this.props.date),
     }
+  }
+
+  generateKeyFromDate(date) {
+    date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString();
   }
 
   render() {
@@ -57,7 +59,7 @@ class RecordTodaysFood extends Component<Props> {
             data={savedFoodOutputData}
             renderItem={({item}) =>
               <View style={styles.foodListEntry}>
-                <Text style={{marginRight: '10%'}}>{item.name}</Text>
+                <Text style={styles.foodListText}>{item.name}</Text>
                 <Button
                   title="x"
                   color="red"
@@ -122,9 +124,13 @@ class DateBanner extends Component<Props> {
   render() {
     return (
       <View style={styles.dateBackground}>
-        <Text style={styles.dateText}>{this.props.today}</Text>
+        <Text style={styles.dateText}>{this.todayHeaderDisplay(this.props.today)}</Text>
       </View>
     );
+  }
+
+  todayHeaderDisplay(todayDate) {
+    return 'Today, ' + todayDate.toDateString();
   }
 }
 
@@ -159,4 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10,
   },
+  foodListText: {
+    marginRight: '10%',
+  }
 });
