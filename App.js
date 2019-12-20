@@ -115,9 +115,11 @@ class RecordTodaysFood extends Component<Props> {
                     let indexToRemove = parseInt(item.key, 10);
                     var newFood = this.state.food;
                     newFood.splice(indexToRemove, 1);
+                    // TODO: wrap all uses of this.setState({ food:  in another function, which will also call _saveFoodToDatabase
                     this.setState({
                       food: newFood
                     });
+                    this._saveFoodToDatabase(newFood);
                   }}
                   accessibilityLabel="Delete this Food Entry"
                 />
