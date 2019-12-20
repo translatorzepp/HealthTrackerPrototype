@@ -31,6 +31,15 @@ class RecordTodaysFood extends Component<Props> {
       food: [],
       todayKeyString: dateKey,
     }
+
+    this._retrieveFoodFromDatabase(dateKey)
+      .then((foodString) => {
+        if (foodString) { // TODO: is this OK?
+          this.setState({
+            food: foodString.split(','),
+          });
+        }
+      });
   }
 
   async _saveFoodToDatabase(food) {
