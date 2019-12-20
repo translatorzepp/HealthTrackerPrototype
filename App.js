@@ -26,14 +26,49 @@ export default class App extends Component<Props> {
 class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
+    dateKey = this.props.date.getFullYear().toString() + this.props.date.getMonth().toString() + this.props.date.getDate().toString();
     this.state = {
       food: [],
-      todayKeyString: this.generateKeyFromDate(this.props.date),
+      todayKeyString: dateKey,
     }
   }
 
-  generateKeyFromDate(date) {
-    date.getFullYear().toString() + date.getMonth().toString() + date.getDate().toString();
+  async _saveFoodToDatabase(food) {
+    try {
+      console.log('*** attempting save of food: ' + food + ' with key: ' + this.state.todayKeyString + ' ***');
+      const valueToStore = this._convertFoodListToJsonString(food);
+      await AsyncStorage.setItem(this.state.todayKeyString, valueToStore);
+    } catch (e) {
+      console.log('*** exception ***')
+      console.log(e);
+      Alert.alert(
+        'Problem!',
+        'There was an error saving what you\'ve eaten today.'
+      );
+    }
+    console.log('*** finished saving ***');
+  }
+
+  _convertFoodListToJsonString(food) {
+    // TODO: escape commas, then actually structure this
+    return food.toString();
+  }
+
+  async _retrieveFoodFromDatabase(key) {
+    try {
+      console.log('*** _retrieveFoodFromDatabase: retrieving key ' + key + ' ***')
+      const foodString = await AsyncStorage.getItem(key)
+      console.log('*** _retrieveFoodFromDatabase: value for key ' + key + ' is ' + foodString + ' ***')
+      return foodString;
+    } catch (e) {
+      console.log('*** exception ***')
+      console.log(e);
+      Alert.alert(
+        'Problem!',
+        'There was an error retrieving what you\'ve eaten today.'
+      );
+      return "";
+    }
   }
 
   render() {
@@ -49,9 +84,11 @@ class RecordTodaysFood extends Component<Props> {
         <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
           updateFoodInputs={(text) => {
+            const newFood = [text, ...this.state.food]
             this.setState({
-              food: [text, ...this.state.food]
+              food: newFood,
             });
+            this._saveFoodToDatabase(newFood);
           }}
         />
           <FlatList
@@ -91,15 +128,6 @@ class FoodNameInput extends Component<Props> {
     }
   }
 
-  _submitFood(text) {
-    if (text.length > 0) { // TODO: check for only spaces / non-word characters
-      this.props.updateFoodInputs(text);
-      this.setState({
-        nameOfFood: "",
-      });
-    }
-  }
-
   render() {
     var colorForBorder = (this.state.nameOfFood.length > 0) ? 'seagreen' : 'royalblue';
     return (
@@ -118,6 +146,15 @@ class FoodNameInput extends Component<Props> {
         />
       </View>
     )
+  }
+
+  _submitFood(text) {
+    if (text.length > 0) { // TODO: check for only spaces / non-word characters
+      this.props.updateFoodInputs(text);
+      this.setState({
+        nameOfFood: "",
+      });
+    }
   }
 }
 
