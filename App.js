@@ -6,7 +6,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList, Dimensions} from 'react-native';
+import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList, Dimensions, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {};
 

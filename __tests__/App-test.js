@@ -9,6 +9,7 @@ import App from '../App';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 import MockDate from 'mockdate';
+import AsyncStorage from '@react-native-community/async-storage';
 
 beforeAll(() =>  {
   MockDate.set('09/13/2019');
