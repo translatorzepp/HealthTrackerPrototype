@@ -42,6 +42,13 @@ class RecordTodaysFood extends Component<Props> {
       });
   }
 
+  _setFood(newFoodArray) {
+    this.setState({
+      food: newFoodArray
+    });
+    this._saveFoodToDatabase(newFoodArray);
+  }
+
   async _saveFoodToDatabase(food) {
     try {
       console.log('*** attempting save of food: ' + food + ' with key: ' + this.state.todayKeyString + ' ***');
@@ -94,10 +101,7 @@ class RecordTodaysFood extends Component<Props> {
         <FoodNameInput
           updateFoodInputs={(text) => {
             const newFood = [text, ...this.state.food]
-            this.setState({
-              food: newFood,
-            });
-            this._saveFoodToDatabase(newFood);
+            this._setFood(newFood);
           }}
         />
           <FlatList
@@ -115,11 +119,7 @@ class RecordTodaysFood extends Component<Props> {
                     let indexToRemove = parseInt(item.key, 10);
                     var newFood = this.state.food;
                     newFood.splice(indexToRemove, 1);
-                    // TODO: wrap all uses of this.setState({ food:  in another function, which will also call _saveFoodToDatabase
-                    this.setState({
-                      food: newFood
-                    });
-                    this._saveFoodToDatabase(newFood);
+                    this._setFood(newFood);
                   }}
                   accessibilityLabel="Delete this Food Entry"
                 />
