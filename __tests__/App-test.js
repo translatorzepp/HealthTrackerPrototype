@@ -20,11 +20,19 @@ it('renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('requests stored items for the day', () => {
+it('always generates the same key for the same day', () => {
+  // TODO: replace this test with a test of a RecordTodaysFood method called generate key or something
   const app = renderer.create(<App />);
+  const dateKey = app.getInstance()._todayDate().toISOString().slice(0, 10);
 
-  expect(AsyncStorage.getItem).toHaveBeenNthCalledWith(1, '20190913')
-  expect(AsyncStorage.getItem).toHaveBeenNthCalledWith(2, '20190913')
+  expect(dateKey).toMatch('2019-09-13');
+});
+
+it('requests stored items for the day', () => {
+  renderer.create(<App />);
+
+  expect(AsyncStorage.getItem).toHaveBeenNthCalledWith(1, '20190913');
+  expect(AsyncStorage.getItem).toHaveBeenNthCalledWith(2, '20190913');
 });
 
 // it('displays stored items for the day', () => {
