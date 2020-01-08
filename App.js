@@ -12,8 +12,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 type Props = {};
 
 export default class App extends Component<Props> {
+  _todayDate() {
+    return new Date();
+  }
+
   render() {
-    const todayDate = new Date();
+    const todayDate = this._todayDate();
     return (
       <View style={styles.topStyle}>
         <DateBanner today={todayDate} />
@@ -26,7 +30,9 @@ export default class App extends Component<Props> {
 class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
-    dateKey = this.props.date.getFullYear().toString() + this.props.date.getMonth().toString() + this.props.date.getDate().toString();
+
+    const dateKey = this.props.date.toISOString().slice(0, 10); // ISO-8601 date format, without time: YYYY-MM-DD
+
     this.state = {
       food: [],
       todayKeyString: dateKey,
