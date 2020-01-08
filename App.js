@@ -36,7 +36,7 @@ class RecordTodaysFood extends Component<Props> {
     this.state = {
       food: [],
       todayKeyString: dateKey,
-    }
+    };
 
     this._retrieveFoodFromDatabase(dateKey)
       .then((foodString) => {
@@ -50,7 +50,7 @@ class RecordTodaysFood extends Component<Props> {
 
   _setFood(newFoodArray) {
     this.setState({
-      food: newFoodArray
+      food: newFoodArray,
     });
     this._saveFoodToDatabase(newFoodArray);
   }
@@ -61,7 +61,7 @@ class RecordTodaysFood extends Component<Props> {
       const valueToStore = this._convertFoodListToJsonString(food);
       await AsyncStorage.setItem(this.state.todayKeyString, valueToStore);
     } catch (e) {
-      console.log('*** exception ***')
+      console.log('*** exception ***');
       console.log(e);
       Alert.alert(
         'Problem!',
@@ -78,9 +78,9 @@ class RecordTodaysFood extends Component<Props> {
 
   async _retrieveFoodFromDatabase(key) {
     try {
-      console.log('*** _retrieveFoodFromDatabase: retrieving key ' + key + ' ***')
+      console.log('*** _retrieveFoodFromDatabase: retrieving key ' + key + ' ***');
       const foodString = await AsyncStorage.getItem(key)
-      console.log('*** _retrieveFoodFromDatabase: value for key ' + key + ' is ' + foodString + ' ***')
+      console.log('*** _retrieveFoodFromDatabase: value for key ' + key + ' is ' + foodString + ' ***');
       return foodString;
     } catch (e) {
       console.log('*** exception ***')
@@ -89,7 +89,7 @@ class RecordTodaysFood extends Component<Props> {
         'Problem!',
         'There was an error retrieving what you\'ve eaten today.'
       );
-      return "";
+      return '';
     }
   }
 
@@ -97,7 +97,7 @@ class RecordTodaysFood extends Component<Props> {
     let savedFoodOutputData = this.state.food.map((foodName, index) => {
       return({
         key: String(index),
-        name: foodName
+        name: foodName,
       });
     });
 
@@ -141,7 +141,7 @@ class FoodNameInput extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      nameOfFood: "",
+      nameOfFood: '',
     }
   }
 
@@ -169,7 +169,7 @@ class FoodNameInput extends Component<Props> {
     if (text.length > 0) { // TODO: check for only spaces / non-word characters
       this.props.updateFoodInputs(text);
       this.setState({
-        nameOfFood: "",
+        nameOfFood: '',
       });
     }
   }

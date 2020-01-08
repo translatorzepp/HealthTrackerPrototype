@@ -11,7 +11,7 @@ import renderer from 'react-test-renderer';
 import MockDate from 'mockdate';
 import AsyncStorage from '@react-native-community/async-storage';
 
-beforeAll(() =>  {
+beforeAll(() => {
   MockDate.set('09/13/2019');
 });
 
