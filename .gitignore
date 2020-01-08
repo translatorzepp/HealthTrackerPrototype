@@ -57,3 +57,11 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# VSCode
+.vscode/
+android/.project
+android/.settings/
+android/app/.classpath
+android/app/.project
+android/app/.settings/
