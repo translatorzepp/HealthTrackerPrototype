@@ -6,26 +6,12 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList, Dimensions} from 'react-native';
+import {Text, TextInput, View, Button, FlatList} from 'react-native';
+import styles from '../styles';
 
 type Props = {};
 
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.topStyle}>
-        <DateBanner today={this.todayString()} />
-        <RecordTodaysFood></RecordTodaysFood>
-      </View>
-    );
-  }
-
-  todayString() {
-    return 'Today, ' + new Date().toDateString();
-  }
-}
-
-class RecordTodaysFood extends Component<Props> {
+export default class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
@@ -117,46 +103,3 @@ class FoodNameInput extends Component<Props> {
     )
   }
 }
-
-class DateBanner extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.dateBackground}>
-        <Text style={styles.dateText}>{this.props.today}</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  topStyle: {
-    height: Dimensions.get('window').height,
-  },
-  dateBackground: {
-    backgroundColor: 'seagreen',
-    height: '10%',
-  },
-  dateText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'seashell',
-  },
-  mainContentContainer: {
-    backgroundColor: '#F5FCFF',
-    height: '90%',
-    alignItems: 'center',
-  },
-  prompt: {
-    textAlign: 'center',
-    color: '#333333',
-  },
-  foodList: {
-  },
-  foodListContainer: {
-    alignItems: 'flex-end',
-  },
-  foodListEntry: {
-    flexDirection: 'row',
-    margin: 10,
-  },
-});
