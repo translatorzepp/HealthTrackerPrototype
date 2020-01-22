@@ -49,8 +49,8 @@ export default class RecordTodaysFood extends Component<Props> {
       const valueToStore = this._convertFoodListToJsonString(food);
       await AsyncStorage.setItem(this.state.todayKeyString, valueToStore);
     } catch (e) {
-      console.log('*** exception while attempting to save to database ***');
-      console.log(e);
+      console.log('*** exception while attempting to save to database; key: ' + this.state.todayKeyString + ' value: ' + valueToStore + ' ***');
+      console.log('*** ' + e + ' ***');
       Alert.alert(
         'Problem!',
         'There was an error saving what you\'ve eaten today.'
@@ -65,13 +65,11 @@ export default class RecordTodaysFood extends Component<Props> {
 
   async _retrieveFoodFromDatabase(key) {
     try {
-      console.log('*** attempting retrieval of key: ' + key);
       const foodString = await AsyncStorage.getItem(key);
-      console.log('*** retrieved food: ' + foodString);
       return foodString;
     } catch (e) {
-      console.log('*** exception while attempting to retrieve from database ***');
-      console.log(e);
+      console.log('*** exception while attempting to retrieve from database; key: ' + key + ' ***');
+      console.log('*** ' + e + ' ***');
       Alert.alert(
         'Problem!',
         'There was an error retrieving what you\'ve eaten today.'
@@ -87,7 +85,6 @@ export default class RecordTodaysFood extends Component<Props> {
         name: foodName,
       });
     });
-    console.log('food in render method: ' + this.state.food.toString());
 
     return(
       <View style={styles.mainContentContainer}>

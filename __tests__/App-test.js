@@ -40,15 +40,6 @@ it('displays a list of food items', async () => {
   expect(tree).toMatchSnapshot();
 });
 
-async function asyncStorageSetterHelper(key, value) {
-  try {
-    await AsyncStorage.setItem(key, value);
-    console.log('no error setting food');
-  } catch (e) {
-    console.log('error while trying to mock data: ' + e);
-  }
-}
-
 afterAll(() => {
   MockDate.reset();
 });
