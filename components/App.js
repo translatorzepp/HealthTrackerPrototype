@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Text, TextInput, View, Button} from 'react-native';
+import {Text, View} from 'react-native';
 import RecordTodaysFood from '../components/RecordTodaysFood';
 import styles from '../styles';
 

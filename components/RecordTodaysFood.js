@@ -163,17 +163,3 @@ class FoodNameInput extends Component<Props> {
     }
   }
 }
-
-class DateBanner extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.dateBackground}>
-        <Text style={styles.dateText}>{this.todayHeaderDisplay(this.props.today)}</Text>
-      </View>
-    );
-  }
-
-  todayHeaderDisplay(todayDate) {
-    return 'Today, ' + todayDate.toDateString();
-  }
-}
