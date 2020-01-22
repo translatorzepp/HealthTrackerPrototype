@@ -22,7 +22,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.topStyle}>
         <DateBanner today={todayDate} />
-        <RecordTodaysFood date={todayDate}></RecordTodaysFood>
+        <RecordTodaysFood date={todayDate} startFood={[]}></RecordTodaysFood>
       </View>
     );
   }

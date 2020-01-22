@@ -15,11 +15,10 @@ type Props = {};
 export default class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
-
     const dateKey = this._generateDatabaseKey(this.props.date);
 
     this.state = {
-      food: [],
+      food: this.props.startFood,
       todayKeyString: dateKey,
     };
 
