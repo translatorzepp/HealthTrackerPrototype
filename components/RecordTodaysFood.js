@@ -6,32 +6,17 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TextInput, View, Button, FlatList, Dimensions, Alert} from 'react-native';
+import {Text, TextInput, View, Button, FlatList, Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import styles from '../styles';
 
 type Props = {};
 
-export default class App extends Component<Props> {
-  _todayDate() {
-    return new Date();
-  }
-
-  render() {
-    const todayDate = this._todayDate();
-    return (
-      <View style={styles.topStyle}>
-        <DateBanner today={todayDate} />
-        <RecordTodaysFood date={todayDate}></RecordTodaysFood>
-      </View>
-    );
-  }
-}
-
-class RecordTodaysFood extends Component<Props> {
+export default class RecordTodaysFood extends Component<Props> {
   constructor(props) {
     super(props);
 
-    const dateKey = this.props.date.toISOString().slice(0, 10); // ISO-8601 date format, without time: YYYY-MM-DD
+    const dateKey = this._generateDatabaseKey(this.props.date);
 
     this.state = {
       food: [],
@@ -48,6 +33,11 @@ class RecordTodaysFood extends Component<Props> {
       });
   }
 
+  _generateDatabaseKey(dateObject) {
+    // ISO-8601 date format, without time: YYYY-MM-DD
+    return dateObject.toISOString().slice(0, 10);
+  }
+
   _setFood(newFoodArray) {
     this.setState({
       food: newFoodArray,
@@ -57,18 +47,16 @@ class RecordTodaysFood extends Component<Props> {
 
   async _saveFoodToDatabase(food) {
     try {
-      console.log('*** attempting save of food: ' + food + ' with key: ' + this.state.todayKeyString + ' ***');
       const valueToStore = this._convertFoodListToJsonString(food);
       await AsyncStorage.setItem(this.state.todayKeyString, valueToStore);
     } catch (e) {
-      console.log('*** exception ***');
+      console.log('*** exception while attempting to save to database ***');
       console.log(e);
       Alert.alert(
         'Problem!',
         'There was an error saving what you\'ve eaten today.'
       );
     }
-    console.log('*** finished saving ***');
   }
 
   _convertFoodListToJsonString(food) {
@@ -78,12 +66,12 @@ class RecordTodaysFood extends Component<Props> {
 
   async _retrieveFoodFromDatabase(key) {
     try {
-      console.log('*** _retrieveFoodFromDatabase: retrieving key ' + key + ' ***');
-      const foodString = await AsyncStorage.getItem(key)
-      console.log('*** _retrieveFoodFromDatabase: value for key ' + key + ' is ' + foodString + ' ***');
+      console.log('*** attempting retrieval of key: ' + key);
+      const foodString = await AsyncStorage.getItem(key);
+      console.log('*** retrieved food: ' + foodString);
       return foodString;
     } catch (e) {
-      console.log('*** exception ***')
+      console.log('*** exception while attempting to retrieve from database ***');
       console.log(e);
       Alert.alert(
         'Problem!',
@@ -100,13 +88,14 @@ class RecordTodaysFood extends Component<Props> {
         name: foodName,
       });
     });
+    console.log('food in render method: ' + this.state.food.toString());
 
     return(
       <View style={styles.mainContentContainer}>
         <Text style={styles.prompt}>What have you eaten today?</Text>
         <FoodNameInput
           updateFoodInputs={(text) => {
-            const newFood = [text, ...this.state.food]
+            const newFood = [text, ...this.state.food];
             this._setFood(newFood);
           }}
         />
@@ -188,39 +177,3 @@ class DateBanner extends Component<Props> {
     return 'Today, ' + todayDate.toDateString();
   }
 }
-
-const styles = StyleSheet.create({
-  topStyle: {
-    height: Dimensions.get('window').height,
-  },
-  dateBackground: {
-    backgroundColor: 'seagreen',
-    height: '10%',
-  },
-  dateText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'seashell',
-  },
-  mainContentContainer: {
-    backgroundColor: '#F5FCFF',
-    height: '90%',
-    alignItems: 'center',
-  },
-  prompt: {
-    textAlign: 'center',
-    color: '#333333',
-  },
-  foodList: {
-  },
-  foodListContainer: {
-    alignItems: 'flex-end',
-  },
-  foodListEntry: {
-    flexDirection: 'row',
-    margin: 10,
-  },
-  foodListText: {
-    marginRight: '10%',
-  }
-});
